@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const TAR_COMMAND = process.platform === 'win32' ? 'C:\\Windows\\System32\\tar.exe' : '/usr/bin/tar';
+const TAR_COMMAND = process.platform === 'win32' ? String.raw`C:\Windows\System32\tar.exe` : '/usr/bin/tar';
 
 /**
  * @param {{

@@ -13,6 +13,7 @@ UI-kit agnostic React view for presenting one current TreeSpec decision to a lea
 - Renders the current node prompt.
 - Renders each available choice as an accessible button using its caption/label.
 - Provides a learner-facing caption slot.
+- Exports an optional feedback toast for post-decision guidance.
 - Exposes semantic `tree-spec-decision-view-*` class hooks without requiring Bootstrap or another UI library.
 
 The host owns loading, persistence, authentication, routing, analytics, and session advancement. Use `@signalsafe/simulator-core` to create and advance a TreeSpec session, or supply a server-returned current node.
@@ -68,6 +69,34 @@ export function Learner({ treeSpec }) {
 
 The `renderPrompt` prop lets a host add presentation around the prompt while retaining the package's choice controls. For a server-backed flow, pass the current API node and call the host's decision endpoint from `onChoice`.
 
+### Decision feedback
+
+Feedback is host-controlled. Render the optional toast after the host receives a decision result:
+
+```tsx
+import {
+    DecisionFeedbackToast,
+    type DecisionFeedback,
+} from "@signalsafe/tree-spec-learner-react";
+
+export function Feedback({
+    feedback,
+    onClose,
+}: {
+    feedback: DecisionFeedback;
+    onClose: () => void;
+}) {
+    return (
+        <DecisionFeedbackToast
+            feedback={feedback}
+            onClose={onClose}
+        />
+    );
+}
+```
+
+The component accepts `title`, `body`, `redFlags`, and `takeaway`. It renders nothing for an empty feedback object, limits red flags to six, and leaves persistence and dismissal state to the host.
+
 ## Styling
 
 The package does not import CSS. Add host-owned styles for the semantic hooks:
@@ -94,6 +123,68 @@ The package does not import CSS. Add host-owned styles for the semantic hooks:
     cursor: pointer;
     padding: 0.65rem 0.9rem;
     text-align: left;
+}
+
+.tree-spec-decision-feedback-toast {
+    position: fixed;
+    inset-inline-end: 1rem;
+    inset-block-end: 1rem;
+    z-index: 2000;
+    width: 26rem;
+    max-width: calc(100vw - 2rem);
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    background: #fff;
+    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
+}
+
+.tree-spec-decision-feedback-toast__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.tree-spec-decision-feedback-toast__body-text,
+.tree-spec-decision-feedback-toast__red-flags-title {
+    color: #6c757d;
+    font-size: 0.875rem;
+}
+
+.tree-spec-decision-feedback-toast__body-text {
+    margin-top: 0.25rem;
+}
+
+.tree-spec-decision-feedback-toast__red-flags,
+.tree-spec-decision-feedback-toast__takeaway {
+    margin-top: 0.75rem;
+}
+
+.tree-spec-decision-feedback-toast__red-flags-list {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.tree-spec-decision-feedback-toast__takeaway {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    background: rgb(13 110 253 / 10%);
+    font-size: 0.875rem;
+}
+
+.tree-spec-decision-feedback-toast__takeaway-label {
+    font-weight: 600;
+}
+
+.tree-spec-decision-feedback-toast__close {
+    cursor: pointer;
+    flex: 0 0 auto;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #6c757d;
+    border-radius: 0.375rem;
+    color: #6c757d;
+    background: transparent;
 }
 ```
 

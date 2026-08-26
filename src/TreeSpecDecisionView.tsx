@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import type { NodeView } from "@signalsafe/simulator-core";
+import { joinClasses } from "./classNames.js";
 
 const ROOT_CLASS = "tree-spec-decision-view";
 
@@ -20,11 +21,6 @@ export interface TreeSpecDecisionViewProps {
     emptyState?: ReactNode;
     /** Optional custom prompt renderer while retaining the package's decision controls. */
     renderPrompt?: (node: NodeView) => ReactNode;
-}
-
-function joinClasses(...classes: Array<string | undefined>): string | undefined {
-    const result = classes.filter(Boolean).join(" ");
-    return result || undefined;
 }
 
 export default function TreeSpecDecisionView({

@@ -11,3 +11,10 @@ export type {
     TreeSpecDecisionChoice,
     TreeSpecDecisionViewProps,
 } from "./TreeSpecDecisionView.js";
+export {
+    default as DecisionFeedbackToast,
+} from "./DecisionFeedbackToast.js";
+export type {
+    DecisionFeedback,
+    DecisionFeedbackToastProps,
+} from "./DecisionFeedbackToast.js";

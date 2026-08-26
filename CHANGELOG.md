@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - UI-kit agnostic `TreeSpecDecisionView` React component for presenting the
   current TreeSpec learner decision.
+- UI-kit agnostic `DecisionFeedbackToast` React component for optional
+  post-decision learner feedback.
 
 ### Notes
 

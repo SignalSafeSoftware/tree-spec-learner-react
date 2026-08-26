@@ -3,7 +3,7 @@ import { runSmokePackage } from './smoke-package-lib.mjs';
 runSmokePackage({
     runtimeChecks: [{
         subpath: '.',
-        exports: ['default', 'TreeSpecDecisionView'],
+        exports: ['default', 'TreeSpecDecisionView', 'DecisionFeedbackToast'],
     }],
     typecheckSubpaths: ['.'],
 });

@@ -33,7 +33,7 @@ jobs:
               run: corepack enable
 
             - name: Install dependencies
-              run: yarn install --frozen-lockfile
+              run: yarn install --frozen-lockfile --ignore-scripts
 
             - name: Lint
               run: yarn lint
@@ -65,7 +65,7 @@ jobs:
               run: corepack enable
 
             - name: Install dependencies
-              run: yarn install --frozen-lockfile
+              run: yarn install --frozen-lockfile --ignore-scripts
 
             - name: Test with coverage
               run: yarn test:coverage
@@ -101,7 +101,7 @@ jobs:
               run: corepack enable
 
             - name: Install dependencies
-              run: yarn install --frozen-lockfile
+              run: yarn install --frozen-lockfile --ignore-scripts
 
             - name: Test with coverage
               run: yarn test:coverage
@@ -148,7 +148,7 @@ jobs:
               run: corepack enable
 
             - name: Install dependencies
-              run: yarn install --frozen-lockfile
+              run: yarn install --frozen-lockfile --ignore-scripts
 
             - name: Smoke-test packed artifact
               run: yarn smoke:package
@@ -176,7 +176,7 @@ jobs:
               run: corepack enable
 
             - name: Install dependencies
-              run: yarn install --frozen-lockfile
+              run: yarn install --frozen-lockfile --ignore-scripts
 
             - name: Verify artifact before publish
               run: yarn smoke:package

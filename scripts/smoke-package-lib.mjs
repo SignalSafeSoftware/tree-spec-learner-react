@@ -4,6 +4,8 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+const TAR_COMMAND = process.platform === 'win32' ? 'C:\\Windows\\System32\\tar.exe' : '/usr/bin/tar';
+
 /**
  * @param {{
  *   runtimeChecks?: Array<{ subpath?: string; exports: string[] }>;
@@ -145,8 +147,7 @@ export function runSmokePackage(config) {
         .trim()
         .split('\n')
         .map((line) => line.trim())
-        .filter(Boolean)
-        .pop();
+        .findLast(Boolean);
     if (!tgzName) {
         throw new Error('npm pack did not return a tarball name');
     }
@@ -238,8 +239,9 @@ function runRuntimeChecks(consumerDir, packageName, runtimeChecks) {
         const alias = `mod${index}`;
         lines.push(`const ${alias} = await import(${JSON.stringify(spec)});`);
         for (const exportName of check.exports) {
+            const missingExportMessage = `missing export ${exportName} from ${spec}`;
             lines.push(
-                `assert.ok(typeof ${alias}.${exportName} !== "undefined", ${JSON.stringify(`missing export ${exportName} from ${spec}`)});`,
+                `assert.ok(typeof ${alias}.${exportName} !== "undefined", ${JSON.stringify(missingExportMessage)});`,
             );
         }
         lines.push('');
@@ -279,7 +281,8 @@ function runTypeChecks(consumerDir, packageName, subpaths) {
         )}\n`,
     );
 
-    execFileSync('npx', ['tsc', '-p', 'tsconfig.json'], {
+    const typeScriptCli = path.join(consumerDir, 'node_modules', 'typescript', 'bin', 'tsc');
+    execFileSync(process.execPath, [typeScriptCli, '-p', 'tsconfig.json'], {
         cwd: consumerDir,
         stdio: 'inherit',
     });
@@ -287,7 +290,7 @@ function runTypeChecks(consumerDir, packageName, subpaths) {
 }
 
 function verifyTarballContents(tgzPath, pkg) {
-    const listing = execFileSync('tar', ['-tf', tgzPath], { encoding: 'utf8' })
+    const listing = execFileSync(TAR_COMMAND, ['-tf', tgzPath], { encoding: 'utf8' })
         .trim()
         .split('\n')
         .filter(Boolean);

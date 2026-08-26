@@ -45,11 +45,10 @@ export default function TreeSpecDecisionView({
                 {renderPrompt ? renderPrompt(node) : node.prompt}
             </div>
 
-            <div
+            <fieldset
                 className={`${ROOT_CLASS}__choices`}
-                role="group"
-                aria-label="Decisions"
             >
+                <legend className={`${ROOT_CLASS}__choices-legend`}>Decisions</legend>
                 {node.choices.map((choice) => (
                     <button
                         key={choice.id}
@@ -63,7 +62,7 @@ export default function TreeSpecDecisionView({
                         {choice.label}
                     </button>
                 ))}
-            </div>
+            </fieldset>
         </article>
     );
 }

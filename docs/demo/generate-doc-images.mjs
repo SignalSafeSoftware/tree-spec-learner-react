@@ -34,7 +34,8 @@ const LEARNER_STYLES = `
     .dp-card__body { padding: 38px 40px 34px; }
     .tree-spec-decision-view__caption { margin-bottom: 22px; color: #6c757d; font-size: 14px; }
     .tree-spec-decision-view__prompt { margin-bottom: 38px; font-size: 22px; font-weight: 600; line-height: 1.5; white-space: pre-wrap; }
-    .tree-spec-decision-view__choices { display: grid; gap: 22px; }
+    .tree-spec-decision-view__choices { display: grid; min-inline-size: 0; gap: 22px; margin: 0; padding: 0; border: 0; }
+    .tree-spec-decision-view__choices-legend { margin-bottom: 0; padding: 0; color: #6c757d; font-size: 14px; }
     .tree-spec-decision-view__choice { width: 100%; padding: 15px 18px; border: 1.5px solid #0d6efd; border-radius: 6px; color: #0d6efd; background: #fff; font: inherit; font-size: 16px; cursor: pointer; }
     .note { margin: 22px 0 0; color: #6c757d; font-size: 12px; line-height: 1.65; }
 `;

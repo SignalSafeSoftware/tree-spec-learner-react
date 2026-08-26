@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { Children, type ReactNode } from "react";
 import { joinClasses } from "./classNames.js";
 
 const ROOT_CLASS = "tree-spec-decision-feedback-toast";
@@ -79,8 +79,8 @@ export default function DecisionFeedbackToast({
                     <div className={`${ROOT_CLASS}__red-flags`}>
                         <div className={`${ROOT_CLASS}__red-flags-title`}>Red flags</div>
                         <ul className={`${ROOT_CLASS}__red-flags-list`}>
-                            {redFlags.map((redFlag, index) => (
-                                <li key={index} className={`${ROOT_CLASS}__red-flag`}>
+                            {Children.map(redFlags, (redFlag) => (
+                                <li className={`${ROOT_CLASS}__red-flag`}>
                                     {redFlag}
                                 </li>
                             ))}

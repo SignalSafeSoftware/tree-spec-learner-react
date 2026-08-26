@@ -18,7 +18,8 @@
     .dp-card__body { padding: 38px 40px 34px; }
     .tree-spec-decision-view__caption { margin-bottom: 22px; color: #6c757d; font-size: 14px; }
     .tree-spec-decision-view__prompt { margin-bottom: 38px; font-size: 22px; font-weight: 600; line-height: 1.5; white-space: pre-wrap; }
-    .tree-spec-decision-view__choices { display: grid; gap: 22px; }
+    .tree-spec-decision-view__choices { display: grid; min-inline-size: 0; gap: 22px; margin: 0; padding: 0; border: 0; }
+    .tree-spec-decision-view__choices-legend { margin-bottom: 0; padding: 0; color: #6c757d; font-size: 14px; }
     .tree-spec-decision-view__choice { width: 100%; padding: 15px 18px; border: 1.5px solid #0d6efd; border-radius: 6px; color: #0d6efd; background: #fff; font: inherit; font-size: 16px; cursor: pointer; }
     .note { margin: 22px 0 0; color: #6c757d; font-size: 12px; line-height: 1.65; }
 </style>
@@ -28,7 +29,7 @@
         <p class="subtitle">Current node: triage · rendered from the exported package component</p>
         <section class="dp-card">
           <header class="dp-card__header"><span class="badge">Prompt</span><span class="node-id">Node: triage</span></header>
-          <div class="dp-card__body"><article class="tree-spec-decision-view" data-node-id="triage"><div class="tree-spec-decision-view__caption">What would you do?</div><div class="tree-spec-decision-view__prompt">An employee reports a suspicious attachment. What is the first response?</div><div class="tree-spec-decision-view__choices" role="group" aria-label="Decisions"><button type="button" class="tree-spec-decision-view__choice">Investigate the email headers and isolate the device</button><button type="button" class="tree-spec-decision-view__choice">Assume it is harmless and dismiss the report</button></div></article></div>
+          <div class="dp-card__body"><article class="tree-spec-decision-view" data-node-id="triage"><div class="tree-spec-decision-view__caption">What would you do?</div><div class="tree-spec-decision-view__prompt">An employee reports a suspicious attachment. What is the first response?</div><fieldset class="tree-spec-decision-view__choices"><legend class="tree-spec-decision-view__choices-legend">Decisions</legend><button type="button" class="tree-spec-decision-view__choice">Investigate the email headers and isolate the device</button><button type="button" class="tree-spec-decision-view__choice">Assume it is harmless and dismiss the report</button></fieldset></article></div>
         </section>
         <p class="note">Generated with the public TreeSpecDecisionView export and the current node returned by simulator-core.</p>
       </main>

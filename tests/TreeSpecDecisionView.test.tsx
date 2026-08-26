@@ -42,6 +42,7 @@ describe("TreeSpecDecisionView", () => {
         expect(root.findByProps({ className: "tree-spec-decision-view__prompt" }).children).toEqual([
             node.prompt,
         ]);
+        expect(root.findByType("legend").children).toEqual(["Decisions"]);
         expect(root.findAllByType("button").map((button) => button.children)).toEqual([
             ["Report it"],
             ["Enter the password"],

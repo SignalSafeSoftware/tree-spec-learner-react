@@ -125,6 +125,15 @@ The package does not import CSS. Add host-owned styles for the semantic hooks:
 .tree-spec-decision-view__choices {
     display: grid;
     gap: 0.5rem;
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.tree-spec-decision-view__choices-legend {
+    margin-bottom: 0.5rem;
+    padding: 0;
 }
 
 .tree-spec-decision-view__choice {

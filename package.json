@@ -46,6 +46,8 @@
     },
     "scripts": {
         "build": "tsc -p tsconfig.build.json",
+        "docs:images": "yarn build && node docs/demo/generate-doc-images.mjs",
+        "docs:check": "node docs/demo/generate-doc-images.mjs --check",
         "lint": "yarn typecheck",
         "typecheck": "tsc --noEmit",
         "pack:local": "npm pack --pack-destination ../../dist/reusable-npm",
@@ -69,6 +71,7 @@
         "react-dom": "^18.0.0"
     },
     "devDependencies": {
+        "@signalsafe/tree-spec": "^0.3.3",
         "@types/react": "^18.2.66",
         "@types/react-dom": "^18.2.22",
         "@types/react-test-renderer": "^18.3.0",

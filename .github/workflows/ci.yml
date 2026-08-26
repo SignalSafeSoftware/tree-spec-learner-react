@@ -44,6 +44,9 @@ jobs:
             - name: Build
               run: yarn build
 
+            - name: Verify documentation images
+              run: yarn docs:check
+
     tests:
         name: Tests (Node ${{ matrix.node-version }})
         runs-on: ubuntu-latest

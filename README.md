@@ -99,7 +99,7 @@ The component accepts `title`, `body`, `redFlags`, and `takeaway`. It renders no
 
 ## Documentation images
 
-The [`docs/`](./docs/) folder contains diagrams for the example TreeSpec flow, the learner-facing decision view, and the optional feedback toast:
+The [`docs/`](./docs/) folder contains generated diagrams for the example TreeSpec flow, the learner-facing decision view, and the optional feedback toast. Run `yarn docs:images` to regenerate them from the demo data and the package's public exports:
 
 ![TreeSpec example flow](./docs/tree-spec-example-flow.svg)
 

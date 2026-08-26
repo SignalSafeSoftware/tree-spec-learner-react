@@ -99,9 +99,7 @@ The component accepts `title`, `body`, `redFlags`, and `takeaway`. It renders no
 
 ## Documentation images
 
-The [`docs/`](./docs/) folder contains generated diagrams for the example TreeSpec flow, the learner-facing decision view, and the optional feedback toast. Run `yarn docs:images` to regenerate them from the demo data and the package's public exports:
-
-![TreeSpec example flow](./docs/tree-spec-example-flow.svg)
+The [`docs/`](./docs/) folder contains generated images for the learner-facing decision view and optional feedback toast. The full TreeSpec graph is documented in [`@signalsafe/tree-spec-editor-react`](https://github.com/SignalSafeSoftware/tree-spec-editor-react/blob/main/docs/tree-spec-example-flow.svg). Run `yarn docs:images` to regenerate this package's images from the demo data and public exports:
 
 ![Learner decision view](./docs/tree-spec-learner-view.svg)
 

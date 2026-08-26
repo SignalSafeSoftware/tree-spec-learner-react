@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 690" role="img" aria-labelledby="title desc">
+  <title id="title">TreeSpec learner decision view</title>
+  <desc id="desc">A DeliveryPlus-styled learner card showing the triage node and its two decision buttons.</desc>
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#172b4d" flood-opacity="0.15" />
+    </filter>
+  </defs>
+
+  <rect width="1040" height="690" fill="#f5f7fa" />
+  <text x="80" y="52" fill="#212529" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="25" font-weight="700">Learner-facing TreeSpecDecisionView</text>
+  <text x="80" y="78" fill="#6c757d" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14">Current node: triage · host-styled with DeliveryPlus Bootstrap tokens</text>
+
+  <g filter="url(#shadow)" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+    <rect x="80" y="110" width="880" height="480" rx="10" fill="#ffffff" stroke="#dee2e6" />
+    <rect x="80" y="110" width="880" height="68" rx="10" fill="#ffffff" />
+    <rect x="80" y="168" width="880" height="10" fill="#ffffff" />
+    <rect x="104" y="131" width="74" height="25" rx="5" fill="#0d6efd" />
+    <text x="141" y="148" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="700">Prompt</text>
+    <text x="936" y="148" text-anchor="end" fill="#6c757d" font-size="13">Node: triage</text>
+    <line x1="80" y1="178" x2="960" y2="178" stroke="#dee2e6" />
+
+    <text x="120" y="225" fill="#6c757d" font-size="14">What would you do?</text>
+    <text x="120" y="274" fill="#212529" font-size="22" font-weight="600">An employee reports a suspicious attachment.</text>
+    <text x="120" y="307" fill="#212529" font-size="22" font-weight="600">What is the first response?</text>
+
+    <rect x="120" y="350" width="800" height="58" rx="6" fill="#ffffff" stroke="#0d6efd" stroke-width="1.5" />
+    <text x="520" y="386" text-anchor="middle" fill="#0d6efd" font-size="16">Investigate the email headers and isolate the device</text>
+
+    <rect x="120" y="430" width="800" height="58" rx="6" fill="#ffffff" stroke="#0d6efd" stroke-width="1.5" />
+    <text x="520" y="466" text-anchor="middle" fill="#0d6efd" font-size="16">Assume it is harmless and dismiss the report</text>
+  </g>
+
+  <g font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+    <rect x="120" y="530" width="800" height="1" fill="#f1f3f5" />
+    <text x="120" y="558" fill="#6c757d" font-size="12">The package renders the current node and calls the host’s onChoice(choiceId) callback.</text>
+    <text x="120" y="578" fill="#6c757d" font-size="12">The host controls session state, persistence, navigation, analytics, and feedback.</text>
+  </g>
+</svg>

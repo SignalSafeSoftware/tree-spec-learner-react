@@ -97,6 +97,16 @@ export function Feedback({
 
 The component accepts `title`, `body`, `redFlags`, and `takeaway`. It renders nothing for an empty feedback object, limits red flags to six, and leaves persistence and dismissal state to the host.
 
+## Documentation images
+
+The [`docs/`](./docs/) folder contains diagrams for the example TreeSpec flow, the learner-facing decision view, and the optional feedback toast:
+
+![TreeSpec example flow](./docs/tree-spec-example-flow.svg)
+
+![Learner decision view](./docs/tree-spec-learner-view.svg)
+
+![Decision feedback toast](./docs/tree-spec-feedback-toast.svg)
+
 ## Styling
 
 The package does not import CSS. Add host-owned styles for the semantic hooks:

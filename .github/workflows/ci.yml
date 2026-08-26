@@ -1,0 +1,194 @@
+name: CI
+
+on:
+    push:
+        branches: [main, develop]
+        tags: ["v*"]
+    pull_request:
+        branches: [main, develop]
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+env:
+    PUBLISH_NODE_VERSION: "24"
+
+jobs:
+    checks:
+        name: Checks (Node ${{ matrix.node-version }})
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                node-version: ["22", "24"]
+        steps:
+            - uses: actions/checkout@v7
+
+            - uses: actions/setup-node@v7
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Enable Yarn
+              run: corepack enable
+
+            - name: Install dependencies
+              run: yarn install --frozen-lockfile
+
+            - name: Lint
+              run: yarn lint
+
+            - name: Typecheck
+              run: yarn typecheck
+
+            - name: Build
+              run: yarn build
+
+    tests:
+        name: Tests (Node ${{ matrix.node-version }})
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                node-version: ["22", "24"]
+        steps:
+            - uses: actions/checkout@v7
+
+            - uses: actions/setup-node@v7
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Enable Yarn
+              run: corepack enable
+
+            - name: Install dependencies
+              run: yarn install --frozen-lockfile
+
+            - name: Test with coverage
+              run: yarn test:coverage
+
+            - name: Upload coverage
+              if: matrix.node-version == '24'
+              uses: actions/upload-artifact@v7
+              with:
+                  name: coverage
+                  path: coverage/lcov.info
+
+    scan:
+        name: SonarCloud scan
+        needs: tests
+        if: |
+            github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            pull-requests: write
+        env:
+            SONAR_TOKEN: ${{ secrets.PACKAGES_SONAR_TOKEN }}
+        steps:
+            - uses: actions/checkout@v7
+              with:
+                  fetch-depth: 0
+
+            - uses: actions/setup-node@v7
+              with:
+                  node-version: ${{ env.PUBLISH_NODE_VERSION }}
+
+            - name: Enable Yarn
+              run: corepack enable
+
+            - name: Install dependencies
+              run: yarn install --frozen-lockfile
+
+            - name: Test with coverage
+              run: yarn test:coverage
+
+            - name: Verify coverage report
+              run: |
+                  test -f coverage/lcov.info
+                  grep '^SF:src/' coverage/lcov.info
+
+            - name: SonarCloud scan
+              uses: SonarSource/sonarqube-scan-action@22918119ff8e1ca75a623e15c8296b6ea4fbe28f # v8.2.1
+              env:
+                  SONAR_TOKEN: ${{ secrets.PACKAGES_SONAR_TOKEN }}
+
+            - name: Sonar PR comment
+              if: github.event_name == 'pull_request'
+              uses: actions/github-script@v9
+              with:
+                  script: |
+                      const body = `SonarCloud analysis for \`@signalsafe/tree-spec-learner-react\` (\`signalsafe-package-tree-spec-learner-react\`) completed with result \`${{ job.status }}\`.`;
+                      await github.rest.issues.createComment({
+                          owner: context.repo.owner,
+                          repo: context.repo.repo,
+                          issue_number: context.issue.number,
+                          body,
+                      });
+
+    smoke-package:
+        name: Smoke package (Node ${{ matrix.node-version }})
+        needs: [checks, tests]
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                node-version: ["22", "24"]
+        steps:
+            - uses: actions/checkout@v7
+
+            - uses: actions/setup-node@v7
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Enable Yarn
+              run: corepack enable
+
+            - name: Install dependencies
+              run: yarn install --frozen-lockfile
+
+            - name: Smoke-test packed artifact
+              run: yarn smoke:package
+
+    publish:
+        name: Publish
+        needs: [checks, tests, scan, smoke-package]
+        if: |
+            (
+              (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') ||
+              (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v'))
+            ) &&
+            needs.checks.result == 'success' &&
+            needs.tests.result == 'success' &&
+            (needs.scan.result == 'success' || needs.scan.result == 'skipped')
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v7
+
+            - uses: actions/setup-node@v7
+              with:
+                  node-version: ${{ env.PUBLISH_NODE_VERSION }}
+
+            - name: Enable Yarn
+              run: corepack enable
+
+            - name: Install dependencies
+              run: yarn install --frozen-lockfile
+
+            - name: Verify artifact before publish
+              run: yarn smoke:package
+
+            - name: Check package version
+              run: node -e "const p=require('./package.json'); console.log(p.name, p.version)"
+
+            - name: Configure npm auth
+              run: |
+                echo "registry=https://registry.npmjs.org/" > ~/.npmrc
+                echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" >> ~/.npmrc
+              env:
+                NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+            - name: Publish to npm
+              run: npm publish --access public --ignore-scripts
+              env:
+                NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

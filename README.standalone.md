@@ -1,6 +1,6 @@
 # Standalone export
 
-Copied from `/Users/josh.martin/Documents/Codex/ecosystem/tree-spec-learner-react` via `scripts/standalone/export-standalone-npm-package.sh`.
+Copied via `scripts/standalone/export-standalone-npm-package.sh`.
 
 ```bash
 git init && git branch -M main

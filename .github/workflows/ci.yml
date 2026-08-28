@@ -161,6 +161,7 @@ jobs:
         name: Publish
         needs: [checks, tests, scan, smoke-package]
         if: |
+            always() &&
             (
               (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') ||
               (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v'))

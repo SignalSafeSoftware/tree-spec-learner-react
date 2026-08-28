@@ -12,7 +12,7 @@ describe("package metadata", () => {
             sideEffects?: boolean;
         };
 
-        expect(pkg.version).toBe("0.1.0");
+        expect(pkg.version).toBe("0.1.1");
         expect(pkg.description?.toLowerCase()).toContain("ui-kit agnostic");
         expect(pkg.peerDependencies?.["react-bootstrap"]).toBeUndefined();
         expect(pkg.devDependencies?.["react-bootstrap"]).toBeUndefined();

@@ -69,6 +69,26 @@ export function Learner({ treeSpec }) {
 
 The `renderPrompt` prop lets a host add presentation around the prompt while retaining the package's choice controls. For a server-backed flow, pass the current API node and call the host's decision endpoint from `onChoice`.
 
+### Host-owned choice availability
+
+Use the optional `choiceState` callback when the host needs to explain why a
+choice is currently unavailable. Omitting the callback, or omitting
+`available`, preserves the default where every choice can be selected.
+
+```tsx
+<TreeSpecDecisionView
+    node={node}
+    onChoice={choose}
+    choiceState={(choice) => choice.id === "open"
+        ? { available: false, explanation: "Verify the sender first." }
+        : undefined}
+/>
+```
+
+Unavailable choices render as disabled buttons with an accessible explanation.
+Eligibility remains host-owned; this package does not infer rules from story
+content or mutate session state.
+
 ### Decision feedback
 
 Feedback is host-controlled. Render the optional toast after the host receives a decision result:

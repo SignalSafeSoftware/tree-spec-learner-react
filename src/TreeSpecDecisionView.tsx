@@ -6,6 +6,13 @@ const ROOT_CLASS = "tree-spec-decision-view";
 
 export type TreeSpecDecisionChoice = NodeView["choices"][number];
 
+export interface TreeSpecDecisionChoiceState {
+    /** Whether the host allows this choice; omitted means available. */
+    readonly available?: boolean;
+    /** Optional accessible explanation shown when the choice is unavailable. */
+    readonly explanation?: ReactNode;
+}
+
 export interface TreeSpecDecisionViewProps {
     /** The current runtime node. Pass null when the session has ended or is unavailable. */
     node: NodeView | null;
@@ -21,6 +28,8 @@ export interface TreeSpecDecisionViewProps {
     emptyState?: ReactNode;
     /** Optional custom prompt renderer while retaining the package's decision controls. */
     renderPrompt?: (node: NodeView) => ReactNode;
+    /** Host-owned eligibility and explanation for each choice. */
+    choiceState?: (choice: TreeSpecDecisionChoice) => TreeSpecDecisionChoiceState | undefined;
 }
 
 export default function TreeSpecDecisionView({
@@ -31,6 +40,7 @@ export default function TreeSpecDecisionView({
     className,
     emptyState = null,
     renderPrompt,
+    choiceState,
 }: Readonly<TreeSpecDecisionViewProps>) {
     if (node == null) return emptyState;
 
@@ -49,19 +59,32 @@ export default function TreeSpecDecisionView({
                 className={`${ROOT_CLASS}__choices`}
             >
                 <legend className={`${ROOT_CLASS}__choices-legend`}>Decisions</legend>
-                {node.choices.map((choice) => (
-                    <button
-                        key={choice.id}
-                        type="button"
-                        className={`${ROOT_CLASS}__choice`}
-                        disabled={disabled}
-                        onClick={() => {
-                            if (!disabled) onChoice(choice.id);
-                        }}
-                    >
-                        {choice.label}
-                    </button>
-                ))}
+                {node.choices.map((choice) => {
+                    const state = choiceState?.(choice);
+                    const available = state?.available !== false;
+                    const explanationId = `${ROOT_CLASS}__explanation-${choice.id}`;
+                    return (
+                        <div key={choice.id} className={`${ROOT_CLASS}__choice-wrapper`}>
+                            <button
+                                type="button"
+                                className={`${ROOT_CLASS}__choice`}
+                                disabled={disabled || !available}
+                                aria-disabled={!available}
+                                aria-describedby={state?.explanation == null ? undefined : explanationId}
+                                onClick={() => {
+                                    if (!disabled && available) onChoice(choice.id);
+                                }}
+                            >
+                                {choice.label}
+                            </button>
+                            {state?.explanation != null && (
+                                <span id={explanationId} className={`${ROOT_CLASS}__choice-explanation`}>
+                                    {state.explanation}
+                                </span>
+                            )}
+                        </div>
+                    );
+                })}
             </fieldset>
         </article>
     );

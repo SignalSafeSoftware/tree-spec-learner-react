@@ -10,6 +10,7 @@ export { default, default as TreeSpecDecisionView } from "./TreeSpecDecisionView
 export type {
     TreeSpecDecisionChoice,
     TreeSpecDecisionViewProps,
+    TreeSpecDecisionChoiceState,
 } from "./TreeSpecDecisionView.js";
 export {
     default as DecisionFeedbackToast,

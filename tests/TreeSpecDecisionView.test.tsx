@@ -90,4 +90,29 @@ describe("TreeSpecDecisionView", () => {
 
         expect(renderer!.root.findByType("p").children).toEqual(["Complete"]);
     });
+
+    it("supports host-owned unavailable choices with accessible explanations", () => {
+        const onChoice = vi.fn();
+        act(() => {
+            renderer = TestRenderer.create(
+                <TreeSpecDecisionView
+                    node={node}
+                    onChoice={onChoice}
+                    choiceState={(choice) => choice.id === "enter" ? {
+                        available: false,
+                        explanation: "Verify the sender first.",
+                    } : undefined}
+                />,
+            );
+        });
+
+        const buttons = renderer!.root.findAllByType("button");
+        expect(buttons[0]?.props.disabled).toBe(false);
+        expect(buttons[1]?.props.disabled).toBe(true);
+        expect(buttons[1]?.props["aria-disabled"]).toBe(true);
+        expect(renderer!.root.findByProps({ className: "tree-spec-decision-view__choice-explanation" }).children)
+            .toEqual(["Verify the sender first."]);
+        act(() => buttons[1]?.props.onClick());
+        expect(onChoice).not.toHaveBeenCalled();
+    });
 });

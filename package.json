@@ -68,7 +68,7 @@
         "react-dom": "^18.0.0"
     },
     "devDependencies": {
-        "@signalsafe/simulator-core": "^0.2.0",
+        "@signalsafe/simulator-core": "^0.6.0",
         "@signalsafe/tree-spec": "^0.4.1",
         "@types/react": "^18.2.66",
         "@types/react-dom": "^18.2.22",

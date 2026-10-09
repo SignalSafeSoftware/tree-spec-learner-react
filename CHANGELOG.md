@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-10-09
+
+### Changed
+
+- Remove the runtime dependency on `@signalsafe/simulator-core`. `TreeSpecDecisionView` is now generic over a structural `TreeSpecDecisionNode`, which any simulator-core `NodeView` satisfies, so consumers no longer receive a nested simulator-core copy.
+- Add `TreeSpecDecisionNode` type export.
+- Develop against `@signalsafe/tree-spec` `^0.4.1`.
+
 ## [0.2.0] - 2026-09-08
 
 ### Added

@@ -2,9 +2,9 @@ import React from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { act, TestRenderer } from "./reactTestRenderer";
 import TreeSpecDecisionView from "../src/TreeSpecDecisionView";
-import type { NodeView } from "@signalsafe/simulator-core";
+import type { TreeSpecDecisionNode } from "../src/TreeSpecDecisionView";
 
-const node: NodeView = {
+const node: TreeSpecDecisionNode = {
     id: "start",
     type: "prompt",
     prompt: "A message asks for your password. What do you do?",

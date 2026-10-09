@@ -6,7 +6,7 @@ UI-kit agnostic React view for presenting one current TreeSpec decision to a lea
 |---|---|
 | **npm** | `@signalsafe/tree-spec-learner-react` |
 | **Peer deps** | `react`, `react-dom` |
-| **Runtime types** | `NodeView` from `@signalsafe/simulator-core` |
+| **Runtime types** | Structural `TreeSpecDecisionNode`; `NodeView` from `@signalsafe/simulator-core` satisfies it |
 
 ## What this package does
 
@@ -27,7 +27,8 @@ The host owns loading, persistence, authentication, routing, analytics, and sess
 ## Install
 
 ```bash
-npm install @signalsafe/tree-spec-learner-react @signalsafe/simulator-core react react-dom
+npm install @signalsafe/tree-spec-learner-react react react-dom
+npm install @signalsafe/simulator-core   # optional: supplies NodeView sessions
 ```
 
 ## Usage

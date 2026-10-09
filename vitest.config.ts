@@ -1,8 +1,4 @@
-import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitest/config";
-
-const packageRoot = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
     esbuild: {
@@ -10,12 +6,6 @@ export default defineConfig({
         jsxDev: false,
     },
     resolve: {
-        alias: [
-            {
-                find: "@signalsafe/simulator-core",
-                replacement: path.resolve(packageRoot, "../simulator-core/src/index.ts"),
-            },
-        ],
         dedupe: ["react", "react-dom", "react-test-renderer"],
     },
     test: {

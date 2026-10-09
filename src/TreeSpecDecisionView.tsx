@@ -1,10 +1,20 @@
 import type { ReactNode } from "react";
-import type { NodeView } from "@signalsafe/simulator-core";
 import { joinClasses } from "./classNames.js";
 
 const ROOT_CLASS = "tree-spec-decision-view";
 
-export type TreeSpecDecisionChoice = NodeView["choices"][number];
+/** Minimal choice shape; satisfied by `NodeView` choices from `@signalsafe/simulator-core`. */
+export interface TreeSpecDecisionChoice {
+    readonly id: string;
+    readonly label: string;
+}
+
+/** Minimal node shape; satisfied by `NodeView` from `@signalsafe/simulator-core`. */
+export interface TreeSpecDecisionNode {
+    readonly id: string;
+    readonly prompt: string;
+    readonly choices: ReadonlyArray<TreeSpecDecisionChoice>;
+}
 
 export interface TreeSpecDecisionChoiceState {
     /** Whether the host allows this choice; omitted means available. */
@@ -13,9 +23,9 @@ export interface TreeSpecDecisionChoiceState {
     readonly explanation?: ReactNode;
 }
 
-export interface TreeSpecDecisionViewProps {
+export interface TreeSpecDecisionViewProps<TNode extends TreeSpecDecisionNode = TreeSpecDecisionNode> {
     /** The current runtime node. Pass null when the session has ended or is unavailable. */
-    node: NodeView | null;
+    node: TNode | null;
     /** Optional learner-facing instruction shown above the node prompt. */
     caption?: ReactNode;
     /** Called with the selected choice id. The host owns persistence and session orchestration. */
@@ -27,12 +37,12 @@ export interface TreeSpecDecisionViewProps {
     /** Content shown when no current node is available. Defaults to null. */
     emptyState?: ReactNode;
     /** Optional custom prompt renderer while retaining the package's decision controls. */
-    renderPrompt?: (node: NodeView) => ReactNode;
+    renderPrompt?: (node: TNode) => ReactNode;
     /** Host-owned eligibility and explanation for each choice. */
     choiceState?: (choice: TreeSpecDecisionChoice) => TreeSpecDecisionChoiceState | undefined;
 }
 
-export default function TreeSpecDecisionView({
+export default function TreeSpecDecisionView<TNode extends TreeSpecDecisionNode = TreeSpecDecisionNode>({
     node,
     caption,
     onChoice,
@@ -41,7 +51,7 @@ export default function TreeSpecDecisionView({
     emptyState = null,
     renderPrompt,
     choiceState,
-}: Readonly<TreeSpecDecisionViewProps>) {
+}: Readonly<TreeSpecDecisionViewProps<TNode>>) {
     if (node == null) return emptyState;
 
     return (

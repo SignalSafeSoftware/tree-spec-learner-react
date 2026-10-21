@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Documentation
+
+- Mark the standalone `0.2.1` line as retired and direct new integrations to the consolidated assessment learner entry point. No standalone runtime release or dependency migration is proposed.
+
 ## [0.2.1] - 2026-10-09
 
 ### Changed
@@ -41,6 +45,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   styling.
 - The package has no Bootstrap or other UI-library dependency.
 
-[Unreleased]: https://github.com/SignalSafeSoftware/tree-spec-learner-react/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/SignalSafeSoftware/tree-spec-learner-react/compare/v0.2.1...HEAD
 [0.2.0]: https://github.com/SignalSafeSoftware/tree-spec-learner-react/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/SignalSafeSoftware/tree-spec-learner-react/releases/tag/v0.1.1

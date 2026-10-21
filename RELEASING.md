@@ -2,7 +2,7 @@
 
 Standalone repository: [SignalSafeSoftware/tree-spec-learner-react](https://github.com/SignalSafeSoftware/tree-spec-learner-react).
 
-**Depends on:** `@signalsafe/simulator-core`. **Peer deps:** `react`, `react-dom`.
+**Runtime peers:** `react`, `react-dom`. The docs generator alone uses the development-only simulator-core 0.2.x dependency.
 
 This package can be published independently of the phone simulator and TreeSpec editor packages.
 
@@ -13,12 +13,12 @@ This package can be published independently of the phone simulator and TreeSpec 
 ## CI publish policy
 
 - **Checks and tests** run on every pull request.
-- **`scan` (Sonar)** on pull requests is **optional** — it runs only when the PR has the **`scan`** label. On **`push`** (including **`v*`** tag pushes) and **`workflow_dispatch`**, **`scan`** runs automatically.
+- **`scan` (Sonar)** imports measured LCOV on trusted same-repository pull requests, pushes and manual verification. Fork pull requests run the package checks without access to the analysis credential. Automatic Analysis must be off so the coverage-uploading CI scanner is authoritative.
 - **Publish does not run** from PR labels.
 - **Publish runs** when:
-  - **Manual:** GitHub Actions → **CI** → **Run workflow** on branch **`main`**, or
+  - **Manual:** GitHub Actions → **CI** → **Run workflow** on branch **`main`**, explicitly selecting **`publish_npm`**, or
   - **Tag:** push a semver tag matching `v*` (for example `vX.Y.Z`).
-- **Publish requires** successful **`checks`**, **`tests`**, and **`scan`** jobs in the same workflow run (see [`.github/workflows/ci.yml`](./.github/workflows/ci.yml)).
+- **Publish requires** successful **`checks`**, **`tests`**, **`smoke-package`**, and **`scan`** jobs in the same workflow run (see [`.github/workflows/ci.yml`](./.github/workflows/ci.yml)).
 - Pushing a **`v*`** tag starts a workflow run where **`checks`**, **`tests`**, and **`scan`** run before **Publish** can proceed.
 - **GitHub Releases do not trigger publish** in the current workflow.
 - **No npm Environment approval or provenance** in CI today.
@@ -74,3 +74,13 @@ npm view @signalsafe/tree-spec-learner-react version
 ```
 
 CI runs `yarn smoke:package`, logs the package version, then publishes with `npm publish` using `NPM_TOKEN` auth.
+
+## Manual verification and release intent
+
+A CI workflow dispatch verifies the package by default. Publishing from a manual
+dispatch requires selecting `publish_npm` on `main`; a normal verification dispatch
+does not publish. Version tags retain the existing release path. Every release
+requires checks, tests, packed smoke checks and the Sonar result to pass.
+
+The docs generator remains on simulator-core 0.2.x as required by AGENTS.md. Its
+development dependency is not a learner runtime or published-type dependency.

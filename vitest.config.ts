@@ -1,10 +1,7 @@
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
-    esbuild: {
-        jsx: "automatic",
-        jsxDev: false,
-    },
+    oxc: { jsx: { runtime: "automatic", development: false } },
     resolve: {
         dedupe: ["react", "react-dom", "react-test-renderer"],
     },

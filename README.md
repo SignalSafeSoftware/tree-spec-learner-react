@@ -1,5 +1,7 @@
 # `@signalsafe/tree-spec-learner-react`
 
+> Retired standalone package. Version `0.2.1` remains available for existing consumers; new integrations use `@signalsafe/tree-spec-assessment/learner`. The consolidated [assessment repository](https://github.com/SignalSafeSoftware/tree-spec-assessment) owns current development and releases. The examples below document the retained standalone API, not a new standalone release.
+
 UI-kit agnostic React view for presenting one current TreeSpec decision to a learner.
 
 | | |

@@ -6,8 +6,8 @@ import { renderToStaticMarkup } from "react-dom/server";
 import {
     createInitialTreeSpecSession,
     dispatchTreeSpecChoice,
-    getTreeSpecNodeView,
-} from "@signalsafe/simulator-core";
+} from "@signalsafe/simulator-core/session";
+import { getTreeSpecNodeView } from "@signalsafe/simulator-core/nodeView";
 import {
     DecisionFeedbackToast,
     TreeSpecDecisionView,

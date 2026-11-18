@@ -141,9 +141,9 @@
   integrity sha512-2j9bGt5Jh8hj+vPtgzPtl72j0yRxHAyumoo6TNfAjsLB04UtpSvPbPcDcBMxz7n+9CYB0c1GxQFxYRg2jimqGw==
 
 "@signalsafe/simulator-core@^0.7.1":
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/@signalsafe/simulator-core/-/simulator-core-0.7.1.tgz#b81419bed7cc00d36e4c6db855edaf34e3898b0a"
-  integrity sha512-RKEL/bsRnpgMeKYUIAM6DTUj5krP76f8ZB2G3byf9Y/b2xoR4EJ1o4OFFidxr3dlvPj4aMgSeTAstqkhFkinnA==
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@signalsafe/simulator-core/-/simulator-core-0.7.2.tgz#863bd33cdb9a7d21eb1aa471645201e33d2243a7"
+  integrity sha512-vXxRhn5SehGk/urTyy1jbAOtw8zzu0qLcVY7fqiwwcDjduaEKC5w7mGBWQgPfYWpXqUJ51qvfzN/Le6iX4OiSg==
   dependencies:
     "@signalsafe/tree-spec" "^0.4.1"
     zod "^4.6.7"

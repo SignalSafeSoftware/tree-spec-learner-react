@@ -1,5 +1,12 @@
 # `@signalsafe/tree-spec-learner-react`
 
+[![Build](https://github.com/SignalSafeSoftware/tree-spec-learner-react/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/SignalSafeSoftware/tree-spec-learner-react/actions/workflows/ci.yml)
+[![Quality gate](https://sonarcloud.io/api/project_badges/measure?project=signalsafe-package-tree-spec-learner-react&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=signalsafe-package-tree-spec-learner-react)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=signalsafe-package-tree-spec-learner-react&metric=coverage)](https://sonarcloud.io/summary/new_code?id=signalsafe-package-tree-spec-learner-react)
+[![npm version](https://img.shields.io/npm/v/@signalsafe/tree-spec-learner-react?logo=npm)](https://www.npmjs.com/package/@signalsafe/tree-spec-learner-react)
+[![npm downloads per month](https://img.shields.io/npm/dm/@signalsafe/tree-spec-learner-react?label=downloads%2Fmonth)](https://www.npmjs.com/package/@signalsafe/tree-spec-learner-react)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](https://github.com/SignalSafeSoftware/tree-spec-learner-react/blob/main/LICENSE)
+
 > Retired standalone package. Version `0.2.1` remains available for existing consumers; new integrations use `@signalsafe/tree-spec-assessment/learner`. The consolidated [assessment repository](https://github.com/SignalSafeSoftware/tree-spec-assessment) owns current development and releases. The examples below document the retained standalone API, not a new standalone release.
 
 UI-kit agnostic React view for presenting one current TreeSpec decision to a learner.
